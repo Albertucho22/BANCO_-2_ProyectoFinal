@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAPI.Models
 {
@@ -9,6 +10,8 @@ namespace WebAPI.Models
     // public int IssuingAccount { get; set; }
     // public int DestinationAccount { get; set; }
     // public string Type { get; set; }
+    [Column(TypeName = "decimal(10,2)")]
+    public decimal Amount { get; set; }
     public string Information { get; set; }
 
     public Transaction()
