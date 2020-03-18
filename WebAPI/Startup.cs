@@ -56,7 +56,7 @@ namespace WebAPI
       {
         endpoints.MapControllerRoute(
                   name: "default",
-                  pattern: "{controller=Users}/{action=Users}/");
+                  pattern: "{controller=Clients}/{action=Clients}/");
       });
     }
   }

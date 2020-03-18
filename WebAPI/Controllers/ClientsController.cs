@@ -12,27 +12,27 @@ namespace Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class ClientsController : ControllerBase
     {
         private readonly Core2DbContext _context;
 
-        public UsersController(Core2DbContext context)
+        public ClientsController(Core2DbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Users
+        // GET: api/Clients
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<Client>>> GetClients()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Clients.ToListAsync();
         }
 
-        // GET: api/Users/5
+        // GET: api/Clients/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<Client>> GetClient(int id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.Clients.FindAsync(id);
 
             if (user == null)
             {
@@ -42,11 +42,11 @@ namespace Controllers
             return user;
         }
 
-        // PUT: api/Users/5
+        // PUT: api/Clients/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutClient(int id, Client user)
         {
             if (id != user.Id)
             {
@@ -61,7 +61,7 @@ namespace Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!ClientExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace Controllers
             return NoContent();
         }
 
-        // POST: api/Users
+        // POST: api/Clients
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<Client>> PostClient(Client client)
         {
-            _context.Users.Add(user);
+            _context.Clients.Add(client);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            return CreatedAtAction("GetClient", new { id = client.Id }, client);
         }
 
-        // DELETE: api/Users/5
+        // DELETE: api/Clients/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<User>> DeleteUser(int id)
+        public async Task<ActionResult<Client>> DeleteClient(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
+            var client = await _context.Clients.FindAsync(id);
+            if (client == null)
             {
                 return NotFound();
             }
 
-            _context.Users.Remove(user);
+            _context.Clients.Remove(client);
             await _context.SaveChangesAsync();
 
-            return user;
+            return client;
         }
 
-        private bool UserExists(int id)
+        private bool ClientExists(int id)
         {
-            return _context.Users.Any(e => e.Id == id);
+            return _context.Clients.Any(e => e.Id == id);
         }
     }
 }

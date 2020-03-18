@@ -9,7 +9,7 @@ namespace WebAPI.Models
         public DateTime CreatedAt { get; private set; }
         [Column(TypeName = "decimal(10,2)")]
         public decimal Balance { get; set; }
-        public int UserId { get; set; }
+        public int ClientId { get; set; }
 
         public Account()
         {

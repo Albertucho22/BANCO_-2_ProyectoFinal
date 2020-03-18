@@ -2,7 +2,7 @@ using System;
 
 namespace WebAPI.Models
 {
-  public class User
+  public class Client
   {
     public int Id { get; set; }
     public string FirstName { get; set; }
@@ -14,7 +14,7 @@ namespace WebAPI.Models
     public string NationalId { get; set; }
     public DateTime CreatedAt { get; private set; }
 
-    public User()
+    public Client()
     {
       CreatedAt = DateTime.Now;
     }
