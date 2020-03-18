@@ -1,22 +1,49 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebAPI.Models
 {
-  public class Client
-  {
-    public int Id { get; set; }
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
-    // public string FullName { get { return FirstName + " " + LastName;} }
-    public string UserName { get; set; }
-    public string Password { get; set; }
-    public string Email { get; set; }
-    public string NationalId { get; set; }
-    public DateTime CreatedAt { get; private set; }
-
-    public Client()
+    public class Client
     {
-      CreatedAt = DateTime.Now;
+        [Key]
+        public int Id { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        [Display(Name = "First Name")]
+
+        public string FirstName { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+        // public string FullName { get { return FirstName + " " + LastName;} }
+
+        [Required]
+        [StringLength(50)]
+        public string UserName { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string Password { get; set; }
+
+        [Required]
+        [EmailAddress]
+        [StringLength(50)]
+        public string Email { get; set; }
+
+        [Required]
+        [Key]
+        [StringLength(50)]
+        public string NationalId { get; set; }
+
+
+        public DateTime CreatedAt { get; private set; }
+
+        public Client()
+        {
+            CreatedAt = DateTime.Now;
+        }
     }
-  }
 }
