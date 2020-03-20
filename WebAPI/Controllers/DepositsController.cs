@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,52 +8,52 @@ using Microsoft.EntityFrameworkCore;
 using WebAPI.Data;
 using WebAPI.Models;
 
-namespace Controllers
+namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TransactionsController : ControllerBase
+    public class DepositsController : ControllerBase
     {
         private readonly Core2DbContext _context;
 
-        public TransactionsController(Core2DbContext context)
+        public DepositsController(Core2DbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Transactions
+        // GET: api/Deposits
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Transaction>>> GetTransactions()
+        public async Task<ActionResult<IEnumerable<Deposit>>> GetDeposits()
         {
-            return await _context.Transactions.ToListAsync();
+            return await _context.Deposits.ToListAsync();
         }
 
-        // GET: api/Transactions/5
+        // GET: api/Deposits/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Transaction>> GetTransaction(int id)
+        public async Task<ActionResult<Deposit>> GetDeposit(int id)
         {
-            var transaction = await _context.Transactions.FindAsync(id);
+            var deposit = await _context.Deposits.FindAsync(id);
 
-            if (transaction == null)
+            if (deposit == null)
             {
                 return NotFound();
             }
 
-            return transaction;
+            return deposit;
         }
 
-        // PUT: api/Transactions/5
+        // PUT: api/Deposits/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTransaction(int id, Transaction transaction)
+        public async Task<IActionResult> PutDeposit(int id, Deposit deposit)
         {
-            if (id != transaction.Id)
+            if (id != deposit.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(transaction).State = EntityState.Modified;
+            _context.Entry(deposit).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TransactionExists(id))
+                if (!DepositExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace Controllers
             return NoContent();
         }
 
-        // POST: api/Transactions
+        // POST: api/Deposits
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<Transaction>> PostTransaction(Transaction transaction)
+        public async Task<ActionResult<Deposit>> PostDeposit(Deposit deposit)
         {
-            _context.Transactions.Add(transaction);
+            _context.Deposits.Add(deposit);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTransaction", new { id = transaction.Id }, transaction);
+            return CreatedAtAction("GetDeposit", new { id = deposit.Id }, deposit);
         }
 
-        // DELETE: api/Transactions/5
+        // DELETE: api/Deposits/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Transaction>> DeleteTransaction(int id)
+        public async Task<ActionResult<Deposit>> DeleteDeposit(int id)
         {
-            var transaction = await _context.Transactions.FindAsync(id);
-            if (transaction == null)
+            var deposit = await _context.Deposits.FindAsync(id);
+            if (deposit == null)
             {
                 return NotFound();
             }
 
-            _context.Transactions.Remove(transaction);
+            _context.Deposits.Remove(deposit);
             await _context.SaveChangesAsync();
 
-            return transaction;
+            return deposit;
         }
 
-        private bool TransactionExists(int id)
+        private bool DepositExists(int id)
         {
-            return _context.Transactions.Any(e => e.Id == id);
+            return _context.Deposits.Any(e => e.Id == id);
         }
     }
 }
