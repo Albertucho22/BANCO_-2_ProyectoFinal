@@ -34,7 +34,6 @@ namespace WebAPI.Models
         public string Email { get; set; }
 
         [Required]
-        [Key]
         [StringLength(50)]
         public string NationalId { get; set; }
 
