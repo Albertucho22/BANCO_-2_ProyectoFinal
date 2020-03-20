@@ -1,11 +1,15 @@
 New classes:
- - User -> Client
+ - Client
  - Employee
-    - Data consultant
-    - Data maintenance employee
+    - Consultant
+    - DataMantainer
     - Admin
- - Movement
+ - Movement (Optional)
  - Loan
+ - Transaction
+    - LoanPayment
+    - LocalTransfer
+    - WireTransfer
 
 Requirements:
  - Loan creation & payments
@@ -33,3 +37,17 @@ ASK TEACHER:
  - Movement class: properties, context
  - Every employee role and their functions
  - All types of Transaction
+
+
+TASK GROUP 1:
+ - User Admin class, sql table & controller
+ - User DataMantainer class, sql table & controller
+ - User Consultant class, sql table & controller
+ - Set up Logging
+
+TASK GROUP 2:
+ - Transaction LoanPayment class, sql table & controller
+ - Transaction LocalTransfer class, sql table & controller
+ - Transaction WireTransfer class, sql table & controller
+ - Implement Logging for all controllers
+
