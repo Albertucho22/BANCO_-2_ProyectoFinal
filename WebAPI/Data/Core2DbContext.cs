@@ -13,6 +13,6 @@ namespace WebAPI.Data
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<Deposit> Deposits { get; set; }
-        public DbSet<WebAPI.Models.Withdrawal> Withdrawal { get; set; }
+        public DbSet<Withdrawal> Withdrawals { get; set; }
     }
 }

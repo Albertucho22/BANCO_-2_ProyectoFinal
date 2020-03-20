@@ -25,14 +25,14 @@ namespace WebAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Withdrawal>>> GetWithdrawal()
         {
-            return await _context.Withdrawal.ToListAsync();
+            return await _context.Withdrawals.ToListAsync();
         }
 
         // GET: api/Withdrawals/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Withdrawal>> GetWithdrawal(int id)
         {
-            var withdrawal = await _context.Withdrawal.FindAsync(id);
+            var withdrawal = await _context.Withdrawals.FindAsync(id);
 
             if (withdrawal == null)
             {
@@ -80,7 +80,7 @@ namespace WebAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Withdrawal>> PostWithdrawal(Withdrawal withdrawal)
         {
-            _context.Withdrawal.Add(withdrawal);
+            _context.Withdrawals.Add(withdrawal);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetWithdrawal", new { id = withdrawal.Id }, withdrawal);
@@ -90,13 +90,13 @@ namespace WebAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Withdrawal>> DeleteWithdrawal(int id)
         {
-            var withdrawal = await _context.Withdrawal.FindAsync(id);
+            var withdrawal = await _context.Withdrawals.FindAsync(id);
             if (withdrawal == null)
             {
                 return NotFound();
             }
 
-            _context.Withdrawal.Remove(withdrawal);
+            _context.Withdrawals.Remove(withdrawal);
             await _context.SaveChangesAsync();
 
             return withdrawal;
@@ -104,7 +104,7 @@ namespace WebAPI.Controllers
 
         private bool WithdrawalExists(int id)
         {
-            return _context.Withdrawal.Any(e => e.Id == id);
+            return _context.Withdrawals.Any(e => e.Id == id);
         }
     }
 }
