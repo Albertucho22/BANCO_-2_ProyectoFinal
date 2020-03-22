@@ -87,13 +87,13 @@ namespace Controllers
     [HttpPost]
     public async Task<ActionResult<Account>> PostAccount(Account account)
     {
-      try {
+      try
+      {
         return await _accountService.Create(account);
       }
       catch (Exception e)
       {
-
-          return BadRequest(new { error = new { message = e.Message } });
+        return BadRequest(new { error = new { message = e.Message } });
       }
     }
 
@@ -101,11 +101,14 @@ namespace Controllers
     [HttpDelete("{id}")]
     public async Task<ActionResult<Account>> DeleteAccount(int id)
     {
-        try {
-          return await _accountService.Remove(id);
-        } catch (Exception e) {
-          return BadRequest(new { error = new { message = e.Message } });
-        }
+      try
+      {
+        return await _accountService.Remove(id);
+      }
+      catch (Exception e)
+      {
+        return BadRequest(new { error = new { message = e.Message } });
+      }
     }
   }
 }
