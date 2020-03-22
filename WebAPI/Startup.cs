@@ -29,6 +29,7 @@ namespace WebAPI
     {
       services.AddDbContext<Core2DbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Core2Db")));
 
+      services.AddScoped<ClientService>();
       services.AddScoped<AccountService>();
 
       // this down below was the default
