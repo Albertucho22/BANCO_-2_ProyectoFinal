@@ -14,7 +14,7 @@ namespace WebAPI.Models
 
         [Required]
         [Column(TypeName = "decimal(10,2)")]
-        public decimal Balance { get; set; }
+        public decimal Balance { get; private set; }
 
         [Required]
         public int ClientId { get; set; }
@@ -23,6 +23,10 @@ namespace WebAPI.Models
         {
             CreatedAt = DateTime.Now;
             Balance = 0;
+        }
+
+        public void UpdateBalance(decimal amount) {
+            this.Balance += amount;
         }
     }
 }
