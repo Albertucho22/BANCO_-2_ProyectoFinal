@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebAPI.Data;
+using WebAPI.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace WebAPI
@@ -27,6 +28,9 @@ namespace WebAPI
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddDbContext<Core2DbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Core2Db")));
+
+      services.AddScoped<AccountService>();
+
       // this down below was the default
       // services.AddControllersWithViews();
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest);
