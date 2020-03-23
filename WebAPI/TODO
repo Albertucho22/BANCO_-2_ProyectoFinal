@@ -38,14 +38,13 @@ ASK TEACHER:
  - Every employee role and their functions
  - All types of Transaction
 
-
 TASK GROUP 1: [ALBERTO]
  - User Admin class, sql table & controller
  - User DataMantainer class, sql table & controller
  - User Consultant class, sql table & controller
  - Set up Logging
 
-TASK GROUP 2:
+TASK GROUP 2: 
  - Transaction LoanPayment class, sql table & controller
  - Transaction LocalTransfer class, sql table & controller
  - Transaction WireTransfer class, sql table & controller
