@@ -23,8 +23,7 @@ namespace WebAPI.Services
     public async Task<Client> Get(int id)
     {
       var client = await _context.Clients.FindAsync(id);
-
-      if (client == null) throw new Exception("No Account found with given Id.");
+      if (client == null) throw new Exception("No Client found with given Id.");
 
       return client;
     }
