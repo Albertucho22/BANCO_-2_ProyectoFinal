@@ -85,10 +85,11 @@ namespace Controllers
     // To protect from overposting attacks, please enable the specific properties you want to bind to, for
     // more details see https://aka.ms/RazorPagesCRUD.
     [HttpPost]
-    public async Task<ActionResult<Account>> PostAccount(Account account)
+    public async Task<ActionResult<Account>> PostAccount(Account account, [FromServices] ClientService _clientService)
     {
       try
       {
+        var client = await _clientService.Get(account.ClientId);
         return await _accountService.Create(account);
       }
       catch (Exception e)
