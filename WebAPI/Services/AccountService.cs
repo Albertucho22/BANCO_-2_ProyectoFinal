@@ -29,6 +29,10 @@ namespace WebAPI.Services
       return account;
     }
 
+    public async Task<List<Account>> GetClientAccounts(int clientId)  {
+      return await _context.Accounts.Where(acc => acc.ClientId == clientId).ToListAsync();
+    }
+
     public async Task<Account> Update(int id, Account account)
     {
       if (id != account.Id) throw new Exception("URL Id is not equal to given Account Id.");
@@ -52,6 +56,10 @@ namespace WebAPI.Services
       _context.Accounts.Any(e => e.Id == id);
 
     public async Task<Account> Create(Account account) {
+      // var client = await _clientService.Get(account.ClientId);
+
+      // if (client == null) throw new Exception("A Client with the give Id does not exists.");
+
       _context.Accounts.Add(account);
       await _context.SaveChangesAsync();
       return account;

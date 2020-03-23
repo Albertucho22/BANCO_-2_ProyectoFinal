@@ -65,6 +65,27 @@ namespace Controllers
       }
     }
 
+    // GET: api/Clients/5/Accounts
+    [HttpGet("{id}/Accounts")]
+    public async Task<ActionResult<List<Account>>> GetAccountsByClient(int id, [FromServices] AccountService _accountService)
+    {
+      try
+      {
+        return await _accountService.GetClientAccounts(id);
+      }
+      catch (System.Exception e)
+      {
+
+        return BadRequest(new
+        {
+          error = new
+          {
+            message = e.Message
+          }
+        });
+      }
+    }
+
     // PUT: api/Clients/5
     // To protect from overposting attacks, please enable the specific properties you want to bind to, for
     // more details see https://aka.ms/RazorPagesCRUD.
