@@ -31,6 +31,7 @@ namespace WebAPI
 
       services.AddScoped<ClientService>();
       services.AddScoped<AccountService>();
+      services.AddScoped<TransactionService>();
 
       // this down below was the default
       // services.AddControllersWithViews();
