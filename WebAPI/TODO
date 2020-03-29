@@ -1,9 +1,9 @@
 New classes:
  - Client
- - Employee
-    - Consultant
-    - DataMantainer
-    - Admin
+ ✓ Employee
+   ✓ Consultant
+    ✓ DataMantainer
+     ✓ Admin
  - Movement (Optional) //
  - Loan
  - Transaction
