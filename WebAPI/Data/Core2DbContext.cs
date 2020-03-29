@@ -16,5 +16,8 @@ namespace WebAPI.Data
         public DbSet<Withdrawal> Withdrawals { get; set; }
 
         public DbSet<Admin> Admins { get; set; }
+        public DbSet<DataMaintainer> DataMaintainers { get; set; }
+        public DbSet<DataConsultant> DataConsultants { get; set; }
+
     }
 }
