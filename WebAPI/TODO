@@ -20,7 +20,7 @@ Requirements:
  - Logging
  - Username & password Access control
     - Secure passwords
- - Employee roles
+ ✓ Employee roles
  ✓ New accounts at 0
  - Cash deposits must be made from internet banking and/or teller
  - Log all requests & their responses
