@@ -1,13 +1,18 @@
 using System;
+using WebAPI.Models;
 
 namespace WebAPI.Conflict {
   public class Example {
-    public int Id { get; set; }
-    public string Information { get; set; }
-    public DateTime CreatedAt { get; private set; }
+    public Deposit Deposit { get; set; }
 
-    public Example() {
-      this.CreatedAt = DateTime.Now;
+    private string CouponCode { get; set; }
+
+    public byte Identification { get; set; }
+
+    public Example()
+    {
+        CouponCode = "ju78ik";
+        Deposit = new Deposit();
     }
   }
 }
