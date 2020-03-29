@@ -14,5 +14,7 @@ namespace WebAPI.Data
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<Deposit> Deposits { get; set; }
         public DbSet<Withdrawal> Withdrawals { get; set; }
+
+        public DbSet<Admin> Admins { get; set; }
     }
 }
