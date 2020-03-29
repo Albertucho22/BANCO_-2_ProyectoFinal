@@ -39,9 +39,9 @@ ASK TEACHER:
  - All types of Transaction
 
 TASK GROUP 1: [ALBERTO]
- - User Admin class, sql table & controller
- - User DataMantainer class, sql table & controller
- - User Consultant class, sql table & controller
+ ✓ User Admin class, sql table & controller
+ ✓ User DataMantainer class, sql table & controller
+ ✓ User Consultant class, sql table & controller
  - Set up Logging
  - Validate that a new User/Employee has unique username
 
