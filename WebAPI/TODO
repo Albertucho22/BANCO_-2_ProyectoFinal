@@ -43,8 +43,9 @@ TASK GROUP 1: [ALBERTO]
  - User DataMantainer class, sql table & controller
  - User Consultant class, sql table & controller
  - Set up Logging
+ - Validate that a new User/Employee has unique username
 
-TASK GROUP 2: 
+TASK GROUP 2:
  - Transaction LoanPayment class, sql table & controller
  - Transaction LocalTransfer class, sql table & controller
  - Transaction WireTransfer class, sql table & controller
