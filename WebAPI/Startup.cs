@@ -35,7 +35,7 @@ namespace WebAPI
 
       // this down below was the default
       // services.AddControllersWithViews();
-      services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest);
+      services.AddMvc().AddNewtonsoftJson().SetCompatibilityVersion(CompatibilityVersion.Latest);
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
