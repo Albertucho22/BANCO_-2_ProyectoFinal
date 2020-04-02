@@ -1,4 +1,4 @@
-﻿using WebAPI.Models;
+using WebAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace WebAPI.Data
@@ -18,6 +18,7 @@ namespace WebAPI.Data
         public DbSet<Admin> Admins { get; set; }
         public DbSet<DataMaintainer> DataMaintainers { get; set; }
         public DbSet<DataConsultant> DataConsultants { get; set; }
+        public DbSet<Loan> Loan { get; set; }
 
     }
 }
