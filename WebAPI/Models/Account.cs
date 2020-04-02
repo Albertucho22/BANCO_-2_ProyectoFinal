@@ -29,10 +29,11 @@ namespace WebAPI.Models {
     public void UpdateBalance(decimal amount) {
       // refactor method to accept a Transaction &
       // do operation based on Transaction derived Type
-      if (this.Balance + amount < 0) {
+      decimal newBalance = this.Balance + amount;
+      if (newBalance < 0) {
         throw new Exception("Account does not have sufficient funds.");
       }
-      this.Balance += amount;
+      this.Balance = newBalance;
     }
   }
 }
