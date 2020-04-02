@@ -21,6 +21,9 @@ namespace WebAPI.Models {
     [ForeignKey("AccountId")]
     public virtual List<Loan> Loans { get; set; }
 
+    [ForeignKey("AccountId")]
+    public virtual List<Transaction> Transactions { get; set; }
+
     public Account() {
       CreatedAt = DateTime.Now;
       Balance = 0;

@@ -32,5 +32,7 @@ namespace WebAPI.Models
 
     [Required]
     public int AccountId { get; set; }
+
+    public string Discriminator { get; set; }
   }
 }
