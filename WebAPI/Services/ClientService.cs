@@ -50,7 +50,10 @@ namespace WebAPI.Services
     private bool ClientExists(int id) =>
       _context.Clients.Any(e => e.Id == id);
 
-    public async Task<Client> Create(Client client) {
+        public bool ClientExists(string UserName) =>
+      _context.Clients.Any(e => e.UserName == UserName);
+
+        public async Task<Client> Create(Client client) {
       _context.Clients.Add(client);
       await _context.SaveChangesAsync();
       return client;

@@ -110,7 +110,13 @@ namespace Controllers
     {
       try
       {
-        return await _clientService.Create(client);
+                if (!(_clientService.ClientExists(client.UserName))) {
+                return await _clientService.Create(client);
+                }
+                else
+                {
+                    return BadRequest("El UserName del cliente ya existe.");
+                }
       }
       catch (Exception e)
       {
