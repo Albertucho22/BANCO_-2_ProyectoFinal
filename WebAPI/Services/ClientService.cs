@@ -25,8 +25,8 @@ namespace WebAPI.Services {
     }
 
     public async Task<Client> Update(int id, Client client) {
-
       if (id != client.Id) throw new Exception("URL Id is not equal to given Client Id.");
+      if (ClientExists(client.UserName)) throw new Exception("A Client with the given Username already exists.");
 
       _context.Clients.Update(client);
 
@@ -47,6 +47,7 @@ namespace WebAPI.Services {
       _context.Clients.Any(e => e.UserName == UserName);
 
     public async Task<Client> Create(Client client) {
+      if (ClientExists(client.UserName)) throw new Exception("A Client with the given Username already exists");
       _context.Clients.Add(client);
       await _context.SaveChangesAsync();
       return client;

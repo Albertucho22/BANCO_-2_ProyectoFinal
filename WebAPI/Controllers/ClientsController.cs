@@ -83,13 +83,8 @@ namespace Controllers {
     [HttpPost]
     public async Task<ActionResult<Client>> PostClient(Client client) {
       try {
-        if (!(_clientService.ClientExists(client.UserName))) {
-          return await _clientService.Create(client);
-        } else {
-          return BadRequest("El UserName del cliente ya existe.");
-        }
+        return await _clientService.Create(client);
       } catch (Exception e) {
-
         return BadRequest(new { error = new { message = e.Message } });
       }
     }
