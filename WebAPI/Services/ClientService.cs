@@ -6,22 +6,18 @@ using Microsoft.EntityFrameworkCore;
 using WebAPI.Data;
 using WebAPI.Models;
 
-namespace WebAPI.Services
-{
-  public class ClientService
-  {
+namespace WebAPI.Services {
+  public class ClientService {
     private readonly Core2DbContext _context;
 
-    public ClientService(Core2DbContext context)
-    {
+    public ClientService(Core2DbContext context) {
       _context = context;
     }
 
     public async Task<List<Client>> Get() =>
       await _context.Clients.ToListAsync();
 
-    public async Task<Client> Get(int id)
-    {
+    public async Task<Client> Get(int id) {
       var client = await _context.Clients.FindAsync(id);
       if (client == null) throw new Exception("No Client found with given Id.");
 
@@ -34,12 +30,9 @@ namespace WebAPI.Services
 
       _context.Clients.Update(client);
 
-      try
-      {
+      try {
         await _context.SaveChangesAsync();
-      }
-      catch (Exception)
-      {
+      } catch (Exception) {
         if (!ClientExists(id)) throw new Exception("No client found with given Id.");
         throw;
       }
@@ -50,10 +43,10 @@ namespace WebAPI.Services
     private bool ClientExists(int id) =>
       _context.Clients.Any(e => e.Id == id);
 
-        public bool ClientExists(string UserName) =>
+    public bool ClientExists(string UserName) =>
       _context.Clients.Any(e => e.UserName == UserName);
 
-        public async Task<Client> Create(Client client) {
+    public async Task<Client> Create(Client client) {
       _context.Clients.Add(client);
       await _context.SaveChangesAsync();
       return client;
@@ -67,7 +60,7 @@ namespace WebAPI.Services
         _context.Clients.Remove(client);
         await _context.SaveChangesAsync();
         return client;
-      } catch(Exception) {
+      } catch (Exception) {
         throw;
       }
     }

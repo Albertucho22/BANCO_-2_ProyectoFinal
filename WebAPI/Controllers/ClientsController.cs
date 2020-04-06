@@ -8,34 +8,25 @@ using Microsoft.EntityFrameworkCore;
 using WebAPI.Services;
 using WebAPI.Models;
 
-namespace Controllers
-{
+namespace Controllers {
   [Route("api/[controller]")]
   [ApiController]
-  public class ClientsController : ControllerBase
-  {
+  public class ClientsController : ControllerBase {
     private readonly ClientService _clientService;
 
-    public ClientsController(ClientService clientService)
-    {
+    public ClientsController(ClientService clientService) {
       _clientService = clientService;
     }
 
     // GET: api/Clients
     [HttpGet]
-    public async Task<ActionResult<List<Client>>> GetClients()
-    {
-      try
-      {
+    public async Task<ActionResult<List<Client>>> GetClients() {
+      try {
         List<Client> clients = await _clientService.Get();
         return Ok(clients);
-      }
-      catch (System.Exception e)
-      {
-        return BadRequest(new
-        {
-          error = new
-          {
+      } catch (System.Exception e) {
+        return BadRequest(new {
+          error = new {
             message = e.Message
           }
         });
@@ -44,21 +35,15 @@ namespace Controllers
 
     // GET: api/Clients/5
     [HttpGet("{id}")]
-    public async Task<ActionResult<Client>> GetClient(int id)
-    {
-      try
-      {
+    public async Task<ActionResult<Client>> GetClient(int id) {
+      try {
         var client = await _clientService.Get(id);
         if (client == null) return NotFound();
 
         return client;
-      }
-      catch (System.Exception e)
-      {
-        return BadRequest(new
-        {
-          error = new
-          {
+      } catch (System.Exception e) {
+        return BadRequest(new {
+          error = new {
             message = e.Message
           }
         });
@@ -67,19 +52,13 @@ namespace Controllers
 
     // GET: api/Clients/5/Accounts
     [HttpGet("{id}/Accounts")]
-    public async Task<ActionResult<List<Account>>> GetAccountsByClient(int id, [FromServices] AccountService _accountService)
-    {
-      try
-      {
+    public async Task<ActionResult<List<Account>>> GetAccountsByClient(int id, [FromServices] AccountService _accountService) {
+      try {
         return await _accountService.GetClientAccounts(id);
-      }
-      catch (System.Exception e)
-      {
+      } catch (System.Exception e) {
 
-        return BadRequest(new
-        {
-          error = new
-          {
+        return BadRequest(new {
+          error = new {
             message = e.Message
           }
         });
@@ -90,14 +69,10 @@ namespace Controllers
     // To protect from overposting attacks, please enable the specific properties you want to bind to, for
     // more details see https://aka.ms/RazorPagesCRUD.
     [HttpPut("{id}")]
-    public async Task<ActionResult<Client>> PutClient(int id, Client client)
-    {
-      try
-      {
+    public async Task<ActionResult<Client>> PutClient(int id, Client client) {
+      try {
         return await _clientService.Update(id, client);
-      }
-      catch (System.Exception e)
-      {
+      } catch (System.Exception e) {
         return BadRequest(new { error = new { message = e.Message } });
       }
     }
@@ -106,20 +81,14 @@ namespace Controllers
     // To protect from overposting attacks, please enable the specific properties you want to bind to, for
     // more details see https://aka.ms/RazorPagesCRUD.
     [HttpPost]
-    public async Task<ActionResult<Client>> PostClient(Client client)
-    {
-      try
-      {
-                if (!(_clientService.ClientExists(client.UserName))) {
-                return await _clientService.Create(client);
-                }
-                else
-                {
-                    return BadRequest("El UserName del cliente ya existe.");
-                }
-      }
-      catch (Exception e)
-      {
+    public async Task<ActionResult<Client>> PostClient(Client client) {
+      try {
+        if (!(_clientService.ClientExists(client.UserName))) {
+          return await _clientService.Create(client);
+        } else {
+          return BadRequest("El UserName del cliente ya existe.");
+        }
+      } catch (Exception e) {
 
         return BadRequest(new { error = new { message = e.Message } });
       }
@@ -127,14 +96,10 @@ namespace Controllers
 
     // DELETE: api/Clients/5
     [HttpDelete("{id}")]
-    public async Task<ActionResult<Client>> DeleteClient(int id)
-    {
-      try
-      {
+    public async Task<ActionResult<Client>> DeleteClient(int id) {
+      try {
         return await _clientService.Remove(id);
-      }
-      catch (Exception e)
-      {
+      } catch (Exception e) {
         return BadRequest(new { error = new { message = e.Message } });
       }
     }
