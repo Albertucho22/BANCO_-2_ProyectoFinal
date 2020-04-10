@@ -1,0 +1,19 @@
+@model EmployeesDashboard.Models.API.Account
+@{ ViewData["Title"] = "Account Details Page"; }
+
+<h3>Account @Html.Display("Id")</h3>
+
+<div>
+  <div>
+    <strong>Id</strong>:
+    <span>@Html.Display("Id")</span>
+  </div>
+  <div>
+    <strong>Balance</strong>:
+    <span>@Html.Display("Balance")</span>
+  </div>
+  <div>
+    <strong>Created At</strong>:
+    <span>@Html.Display("CreatedAt")</span>
+  </div>
+</div>

@@ -1,31 +1,31 @@
 @model EmployeesDashboard.Models.API.Client
 @{ ViewData["Title"] = "Client Details Page"; }
 
-<h3>Client @Model.Id</h3>
+<h3>Client @Html.Display("Id")</h3>
 
 <div>
   <div>
     <strong>Id</strong>:
-    <span>@Model.Id</span>
+    <span>@Html.Display("Id")</span>
   </div>
   <div>
     <strong>Name</strong>:
-    <span>@Model.FirstName @Model.LastName</span>
+    <span>@Html.Display("FirstName") @Html.Display("LastName")</span>
   </div>
   <div>
     <strong>Email</strong>:
-    <span>@Model.Email</span>
+    <span>@Html.Display("Email")</span>
   </div>
   <div>
     <strong>Username</strong>:
-    <span>@Model.UserName</span>
+    <span>@Html.Display("UserName")</span>
   </div>
   <div>
     <strong>National ID</strong>:
-    <span>@Model.NationalId</span>
+    <span>@Html.Display("NationalId")</span>
   </div>
   <div>
     <strong>Created At</strong>:
-    <span>@Model.CreatedAt</span>
+    <span>@Html.Display("CreatedAt")</span>
   </div>
 </div>
