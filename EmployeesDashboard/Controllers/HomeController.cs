@@ -12,6 +12,7 @@ namespace EmployeesDashboard.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly WebAPI.Controllers.AccountsController accountsController;
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -25,6 +26,11 @@ namespace EmployeesDashboard.Controllers
 
         public IActionResult Privacy()
         {
+            return View();
+        }
+
+        public IActionResult Clients() {
+
             return View();
         }
 

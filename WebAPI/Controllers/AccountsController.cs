@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using WebAPI.Services;
 using WebAPI.Models;
 
-namespace Controllers
+namespace WebAPI.Controllers
 {
   [Route("api/[controller]")]
   [ApiController]
