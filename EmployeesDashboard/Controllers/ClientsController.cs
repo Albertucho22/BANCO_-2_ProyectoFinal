@@ -15,5 +15,12 @@ namespace EmployeesDashboard.Controllers {
       List<Client> clients = await response.Content.ReadAsAsync<List<Client>>();
       return View(clients);
     }
+
+    [Authorize(Roles="Admin")]
+    public async Task<IActionResult> Details(int id) {
+      HttpResponseMessage response = await httpClient.GetAsync($"https://core-2.azurewebsites.net/api/Clients/{id}");
+      Client client = await response.Content.ReadAsAsync<Client>();
+      return View(client);
+    }
   }
 }

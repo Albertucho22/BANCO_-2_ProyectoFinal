@@ -16,6 +16,7 @@
         <th>Email</th>
         <th>National ID</th>
         <th>Created At</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -29,6 +30,9 @@
             <td>@Html.DisplayFor(modelClient => client.Email)</td>
             <td>@Html.DisplayFor(modelClient => client.NationalId)</td>
             <td>@Html.DisplayFor(modelClient => client.CreatedAt)</td>
+            <td>
+              <a asp-action="Details" asp-route-id="@client.Id">Details</a>
+            </td>
           </tr>
       }
     </tbody>
