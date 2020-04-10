@@ -63,6 +63,13 @@ namespace EmployeesDashboard.Controllers {
       await _userManager.AddToRoleAsync(employee, employeeModel.Role);
       return RedirectToAction(nameof(HomeController.Index), "Home");
     }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Logout() {
+      await _signInManager.SignOutAsync();
+      return RedirectToAction(nameof(HomeController.Index), "Home");
+    }
   }
 
   public class MappingProfile : Profile {
