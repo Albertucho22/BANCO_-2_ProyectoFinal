@@ -9,14 +9,14 @@ namespace EmployeesDashboard.Controllers {
   public class ClientsController : Controller {
     private static readonly HttpClient httpClient = new HttpClient();
 
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public async Task<IActionResult> Index() {
       HttpResponseMessage response = await httpClient.GetAsync("https://core-2.azurewebsites.net/api/Clients");
       List<Client> clients = await response.Content.ReadAsAsync<List<Client>>();
       return View(clients);
     }
 
-    [Authorize(Roles="Admin")]
+    [Authorize]
     public async Task<IActionResult> Details(int id) {
       HttpResponseMessage response = await httpClient.GetAsync($"https://core-2.azurewebsites.net/api/Clients/{id}");
       Client client = await response.Content.ReadAsAsync<Client>();
