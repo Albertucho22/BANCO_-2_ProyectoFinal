@@ -30,7 +30,7 @@ namespace EmployeesDashboard {
         options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
       services.AddIdentity<Employee, IdentityRole>(
-        options => options.SignIn.RequireConfirmedAccount = true
+        // options => options.SignIn.RequireConfirmedAccount = true
       ).AddEntityFrameworkStores<ApplicationDbContext>();
 
       services.AddControllersWithViews();
