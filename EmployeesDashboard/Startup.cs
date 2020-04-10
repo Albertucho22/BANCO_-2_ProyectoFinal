@@ -35,6 +35,11 @@ namespace EmployeesDashboard {
 
       services.AddControllersWithViews();
       services.AddRazorPages();
+
+      services.ConfigureApplicationCookie(o => {
+        o.LoginPath = "/Auth/Login";
+        o.LogoutPath = "/Auth/Logout";
+      });
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

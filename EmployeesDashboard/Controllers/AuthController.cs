@@ -6,12 +6,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeesDashboard.Controllers {
-  public class AccountController : Controller {
+  public class AuthController : Controller {
     private readonly IMapper _mapper;
     private readonly UserManager<Employee> _userManager;
     private readonly SignInManager<Employee> _signInManager;
 
-    public AccountController(IMapper mapper, UserManager<Employee> userManager, SignInManager<Employee> signInManager) {
+    public AuthController(IMapper mapper, UserManager<Employee> userManager, SignInManager<Employee> signInManager) {
       _mapper = mapper;
       _userManager = userManager;
       _signInManager = signInManager;
