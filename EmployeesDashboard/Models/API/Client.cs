@@ -37,6 +37,7 @@ namespace EmployeesDashboard.Models.API {
     [StringLength(50)]
     public string NationalId { get; set; }
 
-    public DateTime CreatedAt { get; private set; }
+    [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+    public DateTime CreatedAt { get; set; }
   }
 }
