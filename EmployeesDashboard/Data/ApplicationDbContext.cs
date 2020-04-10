@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using EmployeesDashboard.Models;
+using EmployeesDashboard.Models.Configuration;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +14,7 @@ namespace EmployeesDashboard.Data {
 
     protected override void OnModelCreating(ModelBuilder builder) {
       base.OnModelCreating(builder);
+      builder.ApplyConfiguration(new RoleConfiguration());
     }
   }
 }
