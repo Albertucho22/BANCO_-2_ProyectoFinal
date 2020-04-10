@@ -37,11 +37,6 @@ namespace EmployeesDashboard.Models.API {
     [StringLength(50)]
     public string NationalId { get; set; }
 
-
     public DateTime CreatedAt { get; private set; }
-
-    public Client() {
-      CreatedAt = DateTime.Now;
-    }
   }
 }
