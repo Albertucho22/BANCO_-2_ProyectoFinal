@@ -1,0 +1,36 @@
+@model IEnumerable<EmployeesDashboard.Models.Employee>
+@{
+    ViewData["Title"] = "Employees Page";
+}
+
+<div class="text-center">
+  <h1 class="display-4">Employees</h1>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach (var employee in Model)
+      {
+          <tr>
+            <td>@Html.DisplayFor(m => employee.Id.Substring(0, 7))</td>
+            <td>@Html.DisplayFor(m => employee.FirstName)</td>
+            <td>@Html.DisplayFor(m => employee.LastName)</td>
+            <td>@Html.DisplayFor(m => employee.UserName)</td>
+            <td>@Html.DisplayFor(m => employee.Email)</td>
+            <td>
+              <a asp-action="Details" asp-route-id="@employee.Id">Details</a>
+            </td>
+          </tr>
+      }
+    </tbody>
+  </table>
+</div>
