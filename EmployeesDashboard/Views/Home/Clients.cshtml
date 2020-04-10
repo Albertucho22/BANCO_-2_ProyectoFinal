@@ -1,0 +1,36 @@
+@model IEnumerable<EmployeesDashboard.Models.API.Client>
+@{
+    ViewData["Title"] = "Clients Page";
+}
+
+<div class="text-center">
+  <h1 class="display-4">Clients</h1>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>National ID</th>
+        <th>Created At</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach (var client in Model)
+      {
+          <tr>
+            <td>@Html.DisplayFor(modelClient => client.Id)</td>
+            <td>@Html.DisplayFor(modelClient => client.FirstName)</td>
+            <td>@Html.DisplayFor(modelClient => client.LastName)</td>
+            <td>@Html.DisplayFor(modelClient => client.UserName)</td>
+            <td>@Html.DisplayFor(modelClient => client.Email)</td>
+            <td>@Html.DisplayFor(modelClient => client.NationalId)</td>
+            <td>@Html.DisplayFor(modelClient => client.CreatedAt)</td>
+          </tr>
+      }
+    </tbody>
+  </table>
+</div>
