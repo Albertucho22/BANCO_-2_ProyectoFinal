@@ -3,7 +3,7 @@
 
 <h3>Account @Html.Display("Id")</h3>
 
-<div>
+<div class="mb-4">
   <div>
     <strong>Id</strong>:
     <span>@Html.Display("Id")</span>
@@ -17,3 +17,35 @@
     <span>@Html.Display("CreatedAt")</span>
   </div>
 </div>
+
+<h4>Transactions</h4>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Amount</th>
+      <th>Type</th>
+      <th>Information</th>
+      <th>Created At</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var transaction in Model.Transactions)
+    {
+      <tr>
+        <td>@Html.DisplayFor(m => transaction.Id)</td>
+        <td class="@(@transaction.Discriminator == "Deposit" ? "text-danger" : "")">
+          @if (transaction.Discriminator == "Deposit")
+          {
+            <span>-</span>
+          }
+          @Html.DisplayFor(m => transaction.Amount)
+        </td>
+        <td>@Html.DisplayFor(m => transaction.Discriminator)</td>
+        <td>@Html.DisplayFor(m => transaction.Information)</td>
+        <td>@Html.DisplayFor(m => transaction.CreatedAt)</td>
+      </tr>
+    }
+  </tbody>
+</table>

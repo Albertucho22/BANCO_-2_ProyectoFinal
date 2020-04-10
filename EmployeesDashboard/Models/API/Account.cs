@@ -22,7 +22,6 @@ namespace EmployeesDashboard.Models.API {
     // [ForeignKey("AccountId")]
     // public virtual List<Loan> Loans { get; set; }
 
-    // [ForeignKey("AccountId")]
-    // public virtual List<Transaction> Transactions { get; set; }
+    public virtual List<Transaction> Transactions { get; set; }
   }
 }
