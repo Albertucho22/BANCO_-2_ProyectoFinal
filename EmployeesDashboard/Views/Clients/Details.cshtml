@@ -3,7 +3,7 @@
 
 <h3>Client @Html.Display("Id")</h3>
 
-<div>
+<div class="mb-4">
   <div>
     <strong>Id</strong>:
     <span>@Html.Display("Id")</span>
@@ -29,3 +29,26 @@
     <span>@Html.Display("CreatedAt")</span>
   </div>
 </div>
+
+<h4>Accounts</h4>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Balance</th>
+      <th>Created At</th>
+      <th></th>
+    </tr>
+    <tbody>
+      @foreach(var account in Model.Accounts) {
+        <tr>
+          <td>@Html.DisplayFor(modelAccount => account.Id)</td>
+          <td>@Html.DisplayFor(modelAccount => account.Balance)</td>
+          <td>@Html.DisplayFor(modelAccount => account.CreatedAt)</td>
+          <td><a asp-controller="Accounts" asp-action="Details" asp-route-id="@account.Id">Details</a></td>
+        </tr>
+      }
+    </tbody>
+  </thead>
+</table>

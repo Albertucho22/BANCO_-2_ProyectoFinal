@@ -39,5 +39,7 @@ namespace EmployeesDashboard.Models.API {
 
     [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
     public DateTime CreatedAt { get; set; }
+
+    public virtual List<Account> Accounts { get; set; }
   }
 }
