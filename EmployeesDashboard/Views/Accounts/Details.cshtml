@@ -35,8 +35,8 @@
     {
       <tr>
         <td>@Html.DisplayFor(m => transaction.Id)</td>
-        <td class="@(@transaction.Discriminator == "Deposit" ? "text-danger" : "")">
-          @if (transaction.Discriminator == "Deposit")
+        <td class="@(@transaction.Discriminator == "Withdrawal" ? "text-danger" : "")">
+          @if (transaction.Discriminator == "Withdrawal")
           {
             <span>-</span>
           }
