@@ -42,7 +42,7 @@ namespace WebAPI.Controllers {
       try {
         var deposit = await _transactionService.GetDeposits(id);
         if (deposit == null) {
-          log.Warn($"Deposit ${id} not found");
+          log.Warn($"Deposit {id} not found");
           return NotFound();
         }
         log.Info($"Get deposit {id}");

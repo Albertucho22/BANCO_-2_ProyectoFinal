@@ -43,7 +43,7 @@ namespace WebAPI.Controllers {
         var loan = await _context.Loan.FindAsync(id);
 
         if (loan == null) {
-          log.Warn($"Loan ${id} not found");
+          log.Warn($"Loan {id} not found");
           return NotFound();
         }
 
@@ -84,7 +84,7 @@ namespace WebAPI.Controllers {
     public async Task<ActionResult<Loan>> DeleteLoan(int id) {
       var loan = await _context.Loan.FindAsync(id);
       if (loan == null) {
-        log.Warn($"Loan ${id} not found");
+        log.Warn($"Loan {id} not found");
         return NotFound();
       }
 

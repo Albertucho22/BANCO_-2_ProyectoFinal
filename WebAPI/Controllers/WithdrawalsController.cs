@@ -43,7 +43,7 @@ namespace WebAPI.Controllers {
       try {
         var withdrawal = await _transactionService.GetWithdrawals(id);
         if (withdrawal == null) {
-          log.Warn($"Withdrawal ${id} not found");
+          log.Warn($"Withdrawal {id} not found");
           return NotFound();
         }
         log.Info($"Get withdrawal {id}");

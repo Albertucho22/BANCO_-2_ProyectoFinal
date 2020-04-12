@@ -42,7 +42,7 @@ namespace WebAPI.Controllers {
       try {
         var client = await _clientService.Get(id);
         if (client == null) {
-          log.Warn($"Client ${id} not found");
+          log.Warn($"Client {id} not found");
           return NotFound();
         }
         log.Info($"Get client {id}");

@@ -42,7 +42,7 @@ namespace WebAPI.Controllers {
       try {
         var account = await _accountService.Get(id);
         if (account == null) {
-          log.Warn($"Account ${id} not found");
+          log.Warn($"Account {id} not found");
           return NotFound();
         }
         log.Info($"Get account {id}");
