@@ -14,6 +14,7 @@ namespace WebAPI.Controllers
   [ApiController]
   public class DepositsController : ControllerBase
   {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
     private readonly TransactionService _transactionService;
 
     public DepositsController(TransactionService transactionServie)
@@ -28,10 +29,12 @@ namespace WebAPI.Controllers
       try
       {
         List<Deposit> deposits = await _transactionService.GetDeposits();
+                log.Info("All Deposits geted.");
         return Ok(deposits);
       }
       catch (Exception e)
       {
+                log.Error(e);
         return BadRequest(new
         {
           error = new
@@ -50,12 +53,13 @@ namespace WebAPI.Controllers
       {
         var deposit = await _transactionService.GetDeposits(id);
         if (deposit == null) return NotFound();
-
+        log.Info("Getted Deposit with specific ID");
         return deposit;
       }
       catch (System.Exception e)
       {
-        return BadRequest(new
+                log.Error(e);
+                return BadRequest(new
         {
           error = new
           {
@@ -70,7 +74,7 @@ namespace WebAPI.Controllers
     // more details see https://aka.ms/RazorPagesCRUD.
     [HttpPut("{id}")]
     public IActionResult PutDeposit() =>
-        BadRequest(new { error = new { message = "Update operation not permitted on Transactions " } });
+        BadRequest(new { error = new { message = "Update operation not permitted on Transactions "} });
 
     // POST: api/Deposits
     // To protect from overposting attacks, please enable the specific properties you want to bind to, for
@@ -81,14 +85,20 @@ namespace WebAPI.Controllers
       try
       {
         var account = await _accountService.Get(deposit.AccountId);
-        if (account == null) return BadRequest("Account not found."); // use proper error obj
+                if (account == null)
+                {
+                    log.Error("Account not found.");
+                    return BadRequest("Account not found."); // use proper error obj
+                }
 
         account.UpdateBalance(deposit.Amount);
         await _accountService.Update(account.Id, account);
+                log.Info("The Deposit has been updated.");	
         return await _transactionService.Create(deposit);
       }
       catch (System.Exception e)
       {
+                log.Error(e);
         return BadRequest(new
         {
           error = new
@@ -104,7 +114,7 @@ namespace WebAPI.Controllers
     public ActionResult DeleteDeposit() =>
         BadRequest(new
         {
-          error = new { message = "Delete operation not permitted on Transactions " }
+          error = new { message = "Delete operation not permitted on Transactions " } 
         });
   }
 }

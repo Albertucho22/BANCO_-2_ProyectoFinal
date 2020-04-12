@@ -12,6 +12,7 @@ namespace WebAPI.Controllers {
   [Route("api/[controller]")]
   [ApiController]
   public class ClientsController : ControllerBase {
+    private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
     private readonly ClientService _clientService;
 
     public ClientsController(ClientService clientService) {
@@ -23,8 +24,10 @@ namespace WebAPI.Controllers {
     public async Task<ActionResult<List<Client>>> GetClients() {
       try {
         List<Client> clients = await _clientService.Get();
+        log.Info("All clients geted.");
         return Ok(clients);
       } catch (System.Exception e) {
+        log.Error(e);
         return BadRequest(new {
           error = new {
             message = e.Message
@@ -39,9 +42,10 @@ namespace WebAPI.Controllers {
       try {
         var client = await _clientService.Get(id);
         if (client == null) return NotFound();
-
+        log.Info("Getted client with specific ID");
         return client;
       } catch (System.Exception e) {
+        log.Error(e);
         return BadRequest(new {
           error = new {
             message = e.Message
@@ -71,6 +75,7 @@ namespace WebAPI.Controllers {
     [HttpPut("{id}")]
     public async Task<ActionResult<Client>> PutClient(int id, ClientUpdateModel clientModel) {
       try {
+        log.Info("The client with the given ID has been updated.");
         return await _clientService.Update(id, clientModel);
       } catch (System.Exception e) {
         return BadRequest(new { error = new { message = e.Message } });
@@ -83,6 +88,7 @@ namespace WebAPI.Controllers {
     [HttpPost]
     public async Task<ActionResult<Client>> PostClient(Client client) {
       try {
+        log.Info("The client has been created.");
         return await _clientService.Create(client);
       } catch (Exception e) {
         return BadRequest(new { error = new { message = e.Message } });
@@ -93,6 +99,7 @@ namespace WebAPI.Controllers {
     [HttpDelete("{id}")]
     public async Task<ActionResult<Client>> DeleteClient(int id) {
       try {
+        log.Info("The client has been deleted.");
         return await _clientService.Remove(id);
       } catch (Exception e) {
         return BadRequest(new { error = new { message = e.Message } });

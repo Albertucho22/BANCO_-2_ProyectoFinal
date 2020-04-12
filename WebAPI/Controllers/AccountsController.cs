@@ -14,7 +14,8 @@ namespace WebAPI.Controllers
   [ApiController]
   public class AccountsController : ControllerBase
   {
-    private readonly AccountService _accountService;
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly AccountService _accountService;
 
     public AccountsController(AccountService accountService)
     {
@@ -28,10 +29,12 @@ namespace WebAPI.Controllers
       try
       {
         List<Account> accounts = await _accountService.Get();
+                log.Info("All accounts geted.");
         return Ok(accounts);
       }
       catch (System.Exception e)
       {
+                log.Error(e);
         return BadRequest(new
         {
           error = new
@@ -50,11 +53,12 @@ namespace WebAPI.Controllers
       {
         var account = await _accountService.Get(id);
         if (account == null) return NotFound();
-
+                log.Info("Getted account with specific ID");
         return account;
       }
       catch (System.Exception e)
       {
+	log.Error(e);
         return BadRequest(new
         {
           error = new
@@ -73,10 +77,12 @@ namespace WebAPI.Controllers
     {
       try
       {
+                log.Info("The account with the given ID has been updated.");
         return await _accountService.Update(id, account);
       }
       catch (System.Exception e)
       {
+                log.Error(e);
         return BadRequest(new { error = new { message = e.Message } });
       }
     }
@@ -90,10 +96,12 @@ namespace WebAPI.Controllers
       try
       {
         var client = await _clientService.Get(account.ClientId);
+                log.Info("The account has been created.");
         return await _accountService.Create(account);
       }
       catch (Exception e)
       {
+                log.Error(e);
         return BadRequest(new { error = new { message = e.Message } });
       }
     }
@@ -104,10 +112,12 @@ namespace WebAPI.Controllers
     {
       try
       {
+                log.Info("The account has been deleted.");
         return await _accountService.Remove(id);
       }
       catch (Exception e)
       {
+                log.Error(e);
         return BadRequest(new { error = new { message = e.Message } });
       }
     }

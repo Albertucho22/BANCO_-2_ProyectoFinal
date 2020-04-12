@@ -14,6 +14,7 @@ namespace WebAPI.Controllers
     [ApiController]
     public class DataConsultantsController : ControllerBase
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly Core2DbContext _context;
 
         public DataConsultantsController(Core2DbContext context)
@@ -25,6 +26,7 @@ namespace WebAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DataConsultant>>> GetDataConsultants()
         {
+            log.Info("All DataConsultants geted.");
             return await _context.DataConsultants.ToListAsync();
         }
 
@@ -36,9 +38,10 @@ namespace WebAPI.Controllers
 
             if (dataConsultant == null)
             {
+                log.Error("The especified DataConsultants doesn't found or doesn't exist. ");
                 return NotFound();
             }
-
+            log.Info("Getted DataConsultant specific ID");
             return dataConsultant;
         }
 
@@ -50,6 +53,7 @@ namespace WebAPI.Controllers
         {
             if (id != dataConsultant.Id)
             {
+                log.Error("Ids aren't the same");
                 return BadRequest();
             }
 
@@ -63,14 +67,16 @@ namespace WebAPI.Controllers
             {
                 if (!DataConsultantExists(id))
                 {
+                    log.Error("the especified admin doesn't found or doesn't exist. ");
                     return NotFound();
                 }
                 else
                 {
+                    log.Info("The DataConsultant with the given ID has been updated.");
                     throw;
                 }
             }
-
+            //Funcion de este return?
             return NoContent();
         }
 
@@ -82,7 +88,7 @@ namespace WebAPI.Controllers
         {
             _context.DataConsultants.Add(dataConsultant);
             await _context.SaveChangesAsync();
-
+            log.Info("The DataConsultant has been created.");
             return CreatedAtAction("GetDataConsultant", new { id = dataConsultant.Id }, dataConsultant);
         }
 
@@ -93,17 +99,19 @@ namespace WebAPI.Controllers
             var dataConsultant = await _context.DataConsultants.FindAsync(id);
             if (dataConsultant == null)
             {
+                log.Error("This DataConsultant doesn't exist");
                 return NotFound();
             }
 
             _context.DataConsultants.Remove(dataConsultant);
             await _context.SaveChangesAsync();
-
+            log.Info("The DataConsultant has been deleted.");
             return dataConsultant;
         }
 
         private bool DataConsultantExists(int id)
         {
+            //Función de este return?
             return _context.DataConsultants.Any(e => e.Id == id);
         }
     }
