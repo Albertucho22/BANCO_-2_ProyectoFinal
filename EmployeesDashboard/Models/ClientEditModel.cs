@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace EmployeesDashboard.Models.API {
+namespace EmployeesDashboard.Models {
   public class ClientEditModel {
     [Required]
     public string FirstName { get; set; }
