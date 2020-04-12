@@ -14,6 +14,7 @@ namespace WebAPI.Controllers
     [ApiController]
     public class LoansController : ControllerBase
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly Core2DbContext _context;
 
         public LoansController(Core2DbContext context)
@@ -25,6 +26,7 @@ namespace WebAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Loan>>> GetLoan()
         {
+            log.Info("All Loans geted.");
             return await _context.Loan.ToListAsync();
         }
 
@@ -36,9 +38,10 @@ namespace WebAPI.Controllers
 
             if (loan == null)
             {
+                log.Error("the especified Loan doesn't found or doesn't exist.");
                 return NotFound();
             }
-
+            log.Info("Getted Loan specific ID");
             return loan;
         }
 
@@ -50,6 +53,7 @@ namespace WebAPI.Controllers
         {
             if (id != loan.Id)
             {
+                log.Error("the especified Loan doesn't found or doesn't exist.");
                 return BadRequest();
             }
 
@@ -63,14 +67,16 @@ namespace WebAPI.Controllers
             {
                 if (!LoanExists(id))
                 {
+                    log.Error("the especified Loan doesn't found or doesn't exist.");
                     return NotFound();
                 }
                 else
                 {
+                    log.Info("The Loan with the given ID has been updated.");
                     throw;
                 }
             }
-
+          //Que log va aquí???
             return NoContent();
         }
 
@@ -82,7 +88,7 @@ namespace WebAPI.Controllers
         {
             _context.Loan.Add(loan);
             await _context.SaveChangesAsync();
-
+            log.Info("The Loan has been created.");
             return CreatedAtAction("GetLoan", new { id = loan.Id }, loan);
         }
 
@@ -93,17 +99,19 @@ namespace WebAPI.Controllers
             var loan = await _context.Loan.FindAsync(id);
             if (loan == null)
             {
+                log.Error("the especified Loan doesn't found or doesn't exist.");
                 return NotFound();
             }
 
             _context.Loan.Remove(loan);
             await _context.SaveChangesAsync();
-
+            log.Info("The Loan has been deleted.");
             return loan;
         }
 
         private bool LoanExists(int id)
         {
+            //Que log va aquí?
             return _context.Loan.Any(e => e.Id == id);
         }
     }

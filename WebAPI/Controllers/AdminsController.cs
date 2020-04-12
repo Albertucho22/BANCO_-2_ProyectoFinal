@@ -14,6 +14,7 @@ namespace WebAPI.Controllers
     [ApiController]
     public class AdminsController : ControllerBase
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly Core2DbContext _context;
 
         public AdminsController(Core2DbContext context)
@@ -25,6 +26,7 @@ namespace WebAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Admin>>> GetAdmins()
         {
+            log.Info("All administrator geted.");
             return await _context.Admins.ToListAsync();
         }
 
@@ -38,7 +40,7 @@ namespace WebAPI.Controllers
             {
                 return NotFound();
             }
-
+            log.Info("Getted administrator with specific ID");
             return admin;
         }
 
@@ -50,6 +52,7 @@ namespace WebAPI.Controllers
         {
             if (id != admin.Id)
             {
+                log.Error("Ids aren't the same");
                 return BadRequest();
             }
 
@@ -63,14 +66,16 @@ namespace WebAPI.Controllers
             {
                 if (!AdminExists(id))
                 {
+                    log.Error("the especified admin doesn't found or doesn't exist. ");
                     return NotFound();
                 }
                 else
                 {
+                    log.Info("The administrator with the given ID has been updated."); 
                     throw;
                 }
             }
-
+            log.Info("The administrator with the given ID has been updated.");  //Funcion de este return?
             return NoContent();
         }
 
@@ -82,7 +87,7 @@ namespace WebAPI.Controllers
         {
             _context.Admins.Add(admin);
             await _context.SaveChangesAsync();
-
+            log.Info("The administrator has been created.");
             return CreatedAtAction("GetAdmin", new { id = admin.Id }, admin);
         }
 
@@ -93,17 +98,21 @@ namespace WebAPI.Controllers
             var admin = await _context.Admins.FindAsync(id);
             if (admin == null)
             {
+
+                log.Error("This admin doesn't exist");
                 return NotFound();
             }
 
             _context.Admins.Remove(admin);
             await _context.SaveChangesAsync();
 
+            log.Info("The administrator has been deleted.");
             return admin;
         }
 
         private bool AdminExists(int id)
         {
+
             return _context.Admins.Any(e => e.Id == id);
         }
     }
