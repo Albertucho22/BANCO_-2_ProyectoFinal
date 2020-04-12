@@ -13,23 +13,23 @@ New classes:
 
 Requirements:
  - Loan creation & payments
- - Cash deposit
- - Cash withdrawal
+ ✓ Cash deposit
+ ✓ Cash withdrawal
  - Same-bank & external banks transfers
  - Security
  - Logging
- - Username & password Access control
-    - Secure passwords
+ ✓ Username & password Access control
+    ✓ Secure passwords
  ✓ Employee roles
  ✓ New accounts at 0
  - Cash deposits must be made from internet banking and/or teller
  - Log all requests & their responses
  - Log all employee activity
- - CRUD for employees
- - CRUD for clients
- - CRUD for accounts
+ ✓ CRUD for employees
+ ✓ CRUD for clients
+ ✓ CRUD for accounts
  - CRUD for loans
- - CRUD for transactions
+ ✓ CRUD for transactions
  - CRUD for movements
  - All transactions must affect an account balance & generate a new movement
 

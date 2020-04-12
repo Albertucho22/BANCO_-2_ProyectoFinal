@@ -1,4 +1,4 @@
-@model IEnumerable<EmployeesDashboard.Models.Employee>
+@model IEnumerable<EmployeesDashboard.Models.EmployeeViewModel>
 @{
     ViewData["Title"] = "Employees Page";
 }
@@ -21,13 +21,14 @@
       @foreach (var employee in Model)
       {
           <tr>
-            <td>@Html.DisplayFor(m => employee.Id.Substring(0, 7))</td>
+            <td>@Html.DisplayFor(m => employee.Id)</td>
             <td>@Html.DisplayFor(m => employee.FirstName)</td>
             <td>@Html.DisplayFor(m => employee.LastName)</td>
             <td>@Html.DisplayFor(m => employee.UserName)</td>
             <td>@Html.DisplayFor(m => employee.Email)</td>
             <td>
-              <a asp-action="Details" asp-route-id="@employee.Id">Details</a>
+              <a asp-action="Details" asp-route-id="@employee.Id">Details</a> |
+              <a asp-action="Delete" asp-route-id="@employee.Id">Delete</a>
             </td>
           </tr>
       }
