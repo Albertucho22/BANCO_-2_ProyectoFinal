@@ -5,6 +5,7 @@ namespace EmployeesDashboard.Models.Configuration {
   public class MappingProfile : Profile {
     public MappingProfile() {
       CreateMap<EmployeeRegistrationModel, Employee>();
+      CreateMap<Employee, EmployeeViewModel>();
     }
   }
 }
