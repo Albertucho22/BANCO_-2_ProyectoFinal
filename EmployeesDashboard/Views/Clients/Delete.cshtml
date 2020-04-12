@@ -1,11 +1,12 @@
 @model EmployeesDashboard.Models.API.Client
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Delete";
 }
 
-<h1>Details @Html.Display("Id")</h1>
+<h1>Delete</h1>
 
+<h3>Are you sure you want to delete this?</h3>
 <div>
     <h4>Client</h4>
     <hr />
@@ -59,31 +60,9 @@
             @Html.DisplayFor(model => model.CreatedAt)
         </dd>
     </dl>
+    
+    <form asp-action="Delete">
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
 </div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    <a asp-action="Index">Back to List</a>
-</div>
-
-<h4>Accounts</h4>
-
-<table class="table">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Balance</th>
-      <th>Created At</th>
-      <th></th>
-    </tr>
-    <tbody>
-      @foreach(var account in Model.Accounts) {
-        <tr>
-          <td>@Html.DisplayFor(modelAccount => account.Id)</td>
-          <td>@Html.DisplayFor(modelAccount => account.Balance)</td>
-          <td>@Html.DisplayFor(modelAccount => account.CreatedAt)</td>
-          <td><a asp-controller="Accounts" asp-action="Details" asp-route-id="@account.Id">Details</a></td>
-        </tr>
-      }
-    </tbody>
-  </thead>
-</table>
