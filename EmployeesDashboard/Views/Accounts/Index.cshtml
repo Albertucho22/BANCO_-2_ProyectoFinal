@@ -1,34 +1,52 @@
 @model IEnumerable<EmployeesDashboard.Models.API.Account>
+
 @{
-    ViewData["Title"] = "Accounts Page";
+  ViewData["Title"] = "List";
 }
 
-<div class="text-center">
-  <h1 class="display-4">Accounts</h1>
+<h1>Acccounts List</h1>
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Id</th>
-        <th>Balance</th>
-        <th>Client ID</th>
-        <th>Created At</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach (var account in Model)
-      {
-          <tr>
-            <td>@Html.DisplayFor(modelAccount => account.Id)</td>
-            <td>@Html.DisplayFor(modelAccount => account.Balance)</td>
-            <td>@Html.DisplayFor(modelAccount => account.ClientId)</td>
-            <td>@Html.DisplayFor(modelAccount => account.CreatedAt)</td>
-            <td>
-              <a asp-action="Details" asp-route-id="@account.Id">Details</a>
-            </td>
-          </tr>
-      }
-    </tbody>
-  </table>
-</div>
+<p>
+  <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>
+        @Html.DisplayNameFor(model => model.Id)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Balance)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.ClientId)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.CreatedAt)
+      </th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+@foreach (var item in Model) {
+    <tr>
+      <td>
+        @Html.DisplayFor(modelItem => item.Id)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => item.Balance)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => item.ClientId)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => item.CreatedAt)
+      </td>
+      <td>
+        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+      </td>
+    </tr>
+}
+  </tbody>
+</table>
