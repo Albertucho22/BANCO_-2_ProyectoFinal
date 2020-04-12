@@ -71,10 +71,4 @@ namespace EmployeesDashboard.Controllers {
       return RedirectToAction(nameof(HomeController.Index), "Home");
     }
   }
-
-  public class MappingProfile : Profile {
-    public MappingProfile() {
-      CreateMap<EmployeeRegistrationModel, Employee>();
-    }
-  }
 }
