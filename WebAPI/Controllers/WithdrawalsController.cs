@@ -13,6 +13,7 @@ namespace WebAPI.Controllers {
   [Route("api/[controller]")]
   [ApiController]
   public class WithdrawalsController : ControllerBase {
+    private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
     private readonly TransactionService _transactionService;
 
     public WithdrawalsController(TransactionService transactionService) {
@@ -24,8 +25,10 @@ namespace WebAPI.Controllers {
     public async Task<ActionResult<IEnumerable<Withdrawal>>> GetWithdrawal() {
       try {
         List<Withdrawal> withdrawals = await _transactionService.GetWithdrawals();
+        log.Info($"Get {withdrawals.Count} withdrawals");
         return Ok(withdrawals);
       } catch (Exception e) {
+        log.Error(e);
         return BadRequest(new {
           error = new {
             message = e.Message
@@ -39,12 +42,16 @@ namespace WebAPI.Controllers {
     public async Task<ActionResult<Withdrawal>> GetWithdrawal(int id) {
       try {
         var withdrawal = await _transactionService.GetWithdrawals(id);
-        if (withdrawal == null) return NotFound();
-
+        if (withdrawal == null) {
+          log.Warn($"Withdrawal ${id} not found");
+          return NotFound();
+        }
+        log.Info($"Get withdrawal {id}");
         return withdrawal;
       } catch (Exception e) {
+        log.Error(e);
         return BadRequest(new {
-          error = new {message = e.Message}
+          error = new { message = e.Message }
         });
       }
     }
@@ -53,8 +60,10 @@ namespace WebAPI.Controllers {
     // To protect from overposting attacks, please enable the specific properties you want to bind to, for
     // more details see https://aka.ms/RazorPagesCRUD.
     [HttpPut]
-    public IActionResult PutWithdrawal() =>
-        BadRequest(new { error = new { message = "Update operation not permitted on Transactions " } });
+    public IActionResult PutWithdrawal() {
+      log.Warn("Deny PUT action from /api/Withdrawals");
+      return BadRequest(new { error = new { message = "Update operation not permitted on Transactions " } });
+    }
 
     // POST: api/Withdrawals
     // To protect from overposting attacks, please enable the specific properties you want to bind to, for
@@ -63,12 +72,17 @@ namespace WebAPI.Controllers {
     public async Task<ActionResult<Withdrawal>> PostWithdrawal(Withdrawal withdrawal, [FromServices] AccountService _accountService) {
       try {
         var account = await _accountService.Get(withdrawal.AccountId);
-        if (account == null) return BadRequest("Account not found."); // use proper error obj
+        if (account == null) {
+          log.Warn($"Account {withdrawal.AccountId} not found.");
+          return BadRequest("Account not found."); // use proper error obj
+        }
 
         account.UpdateBalance(withdrawal.Amount * -1);
         await _accountService.Update(account.Id, account);
+        log.Info($"Withdrawal {withdrawal.Id} has been created.");
         return await _transactionService.Create(withdrawal);
       } catch (Exception e) {
+        log.Error(e);
         return BadRequest(new {
           error = new { message = e.Message }
         });
@@ -77,9 +91,11 @@ namespace WebAPI.Controllers {
 
     // DELETE: api/Withdrawals/5
     [HttpDelete("{id}")]
-    public ActionResult DeleteWithdrawal() =>
-      BadRequest(new {
+    public ActionResult DeleteWithdrawal() {
+      log.Warn("Deny DELETE action from /api/Withdrawals");
+      return BadRequest(new {
         error = new { message = "Delete operation not permitted on Transactions " }
       });
+    }
   }
 }

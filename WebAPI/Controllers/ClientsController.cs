@@ -24,7 +24,7 @@ namespace WebAPI.Controllers {
     public async Task<ActionResult<List<Client>>> GetClients() {
       try {
         List<Client> clients = await _clientService.Get();
-        log.Info("All clients geted.");
+        log.Info($"Get {clients.Count} clients");
         return Ok(clients);
       } catch (System.Exception e) {
         log.Error(e);
@@ -41,8 +41,11 @@ namespace WebAPI.Controllers {
     public async Task<ActionResult<Client>> GetClient(int id) {
       try {
         var client = await _clientService.Get(id);
-        if (client == null) return NotFound();
-        log.Info("Getted client with specific ID");
+        if (client == null) {
+          log.Warn($"Client ${id} not found");
+          return NotFound();
+        }
+        log.Info($"Get client {id}");
         return client;
       } catch (System.Exception e) {
         log.Error(e);
@@ -58,9 +61,11 @@ namespace WebAPI.Controllers {
     [HttpGet("{id}/Accounts")]
     public async Task<ActionResult<List<Account>>> GetAccountsByClient(int id, [FromServices] AccountService _accountService) {
       try {
-        return await _accountService.GetClientAccounts(id);
+        var accounts = await _accountService.GetClientAccounts(id);
+        log.Info($"Get {accounts.Count} accounts tied to Client {id}");
+        return accounts;
       } catch (System.Exception e) {
-
+        log.Error(e);
         return BadRequest(new {
           error = new {
             message = e.Message
@@ -75,9 +80,11 @@ namespace WebAPI.Controllers {
     [HttpPut("{id}")]
     public async Task<ActionResult<Client>> PutClient(int id, ClientUpdateModel clientModel) {
       try {
-        log.Info("The client with the given ID has been updated.");
-        return await _clientService.Update(id, clientModel);
+        var updatedClient = await _clientService.Update(id, clientModel);
+        log.Info($"Client {id} has been updated.");
+        return updatedClient;
       } catch (System.Exception e) {
+        log.Error(e);
         return BadRequest(new { error = new { message = e.Message } });
       }
     }
@@ -88,9 +95,11 @@ namespace WebAPI.Controllers {
     [HttpPost]
     public async Task<ActionResult<Client>> PostClient(Client client) {
       try {
-        log.Info("The client has been created.");
-        return await _clientService.Create(client);
+        var newClient = await _clientService.Create(client);
+        log.Info($"Client {client.Id} has been created.");
+        return newClient;
       } catch (Exception e) {
+        log.Error(e);
         return BadRequest(new { error = new { message = e.Message } });
       }
     }
@@ -99,9 +108,11 @@ namespace WebAPI.Controllers {
     [HttpDelete("{id}")]
     public async Task<ActionResult<Client>> DeleteClient(int id) {
       try {
-        log.Info("The client has been deleted.");
-        return await _clientService.Remove(id);
+        var deletedClient = await _clientService.Remove(id);
+        log.Info($"Client {id} has been deleted.");
+        return deletedClient;
       } catch (Exception e) {
+        log.Error(e);
         return BadRequest(new { error = new { message = e.Message } });
       }
     }
