@@ -69,9 +69,9 @@ namespace WebAPI.Controllers {
     // To protect from overposting attacks, please enable the specific properties you want to bind to, for
     // more details see https://aka.ms/RazorPagesCRUD.
     [HttpPut("{id}")]
-    public async Task<ActionResult<Client>> PutClient(int id, Client client) {
+    public async Task<ActionResult<Client>> PutClient(int id, ClientUpdateModel clientModel) {
       try {
-        return await _clientService.Update(id, client);
+        return await _clientService.Update(id, clientModel);
       } catch (System.Exception e) {
         return BadRequest(new { error = new { message = e.Message } });
       }
