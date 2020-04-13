@@ -14,6 +14,7 @@ namespace WebAPI.Controllers
     [ApiController]
     public class DataMaintainersController : ControllerBase
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly Core2DbContext _context;
 
         public DataMaintainersController(Core2DbContext context)
@@ -25,6 +26,7 @@ namespace WebAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DataMaintainer>>> GetDataMaintainers()
         {
+            log.Info("All DataMaintainers geted.");
             return await _context.DataMaintainers.ToListAsync();
         }
 
@@ -36,9 +38,10 @@ namespace WebAPI.Controllers
 
             if (dataMaintainer == null)
             {
+                log.Error("The especified DataMaintainer doesn't found or doesn't exist. ");
                 return NotFound();
             }
-
+            log.Info("Getted DataMaintainer specific ID");
             return dataMaintainer;
         }
 
@@ -50,6 +53,7 @@ namespace WebAPI.Controllers
         {
             if (id != dataMaintainer.Id)
             {
+                log.Error("Ids aren't the same");
                 return BadRequest();
             }
 
@@ -63,10 +67,12 @@ namespace WebAPI.Controllers
             {
                 if (!DataMaintainerExists(id))
                 {
+                    log.Error("the especified admin doesn't found or doesn't exist. ");
                     return NotFound();
                 }
                 else
                 {
+                    log.Info("The DataMaintainer with the given ID has been updated.");
                     throw;
                 }
             }
@@ -82,7 +88,7 @@ namespace WebAPI.Controllers
         {
             _context.DataMaintainers.Add(dataMaintainer);
             await _context.SaveChangesAsync();
-
+            log.Info("The DataMaintainer has been created.");
             return CreatedAtAction("GetDataMaintainer", new { id = dataMaintainer.Id }, dataMaintainer);
         }
 
@@ -93,12 +99,13 @@ namespace WebAPI.Controllers
             var dataMaintainer = await _context.DataMaintainers.FindAsync(id);
             if (dataMaintainer == null)
             {
+                log.Error("This DataMaintainer doesn't exist");
                 return NotFound();
             }
 
             _context.DataMaintainers.Remove(dataMaintainer);
             await _context.SaveChangesAsync();
-
+            log.Info("The DataMaintainer has been deleted.");
             return dataMaintainer;
         }
 
