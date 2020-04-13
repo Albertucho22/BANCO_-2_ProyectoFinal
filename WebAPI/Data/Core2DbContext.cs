@@ -19,7 +19,11 @@ namespace WebAPI.Data
         public DbSet<DataMaintainer> DataMaintainers { get; set; }
         public DbSet<DataConsultant> DataConsultants { get; set; }
         public DbSet<Loan> Loan { get; set; }
+<<<<<<< HEAD
         public DbSet<LoanPayment> LoanPayments { get; set; }
+=======
+        public DbSet<LocalTransfer> LocalTransfers { get; set; }
+>>>>>>> ab4a47c7d6a18c6fef13e2b7747a787c3f0a447f
 
     }
 }

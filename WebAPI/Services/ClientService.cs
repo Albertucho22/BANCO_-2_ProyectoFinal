@@ -24,16 +24,18 @@ namespace WebAPI.Services {
       return client;
     }
 
-    public async Task<Client> Update(int id, Client client) {
-      if (id != client.Id) throw new Exception("URL Id is not equal to given Client Id.");
-      if (ClientExists(client.UserName)) throw new Exception("A Client with the given Username already exists.");
+    public async Task<Client> Update(int id, ClientUpdateModel clientModel) {
+      if (!ClientExists(id)) throw new Exception("No client found with given Id.");
 
-      _context.Clients.Update(client);
+      var client = await _context.Clients.FindAsync(id);
+      client.FirstName = clientModel.FirstName;
+      client.LastName = clientModel.LastName;
+      client.Email = clientModel.Email;
+      client.Password = clientModel.Password;
 
       try {
         await _context.SaveChangesAsync();
       } catch (Exception) {
-        if (!ClientExists(id)) throw new Exception("No client found with given Id.");
         throw;
       }
 

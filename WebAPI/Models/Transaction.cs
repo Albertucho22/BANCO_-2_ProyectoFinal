@@ -19,9 +19,7 @@ namespace WebAPI.Models
       }
       private set { }
     }
-    // public int IssuingAccount { get; set; }
-    // public int DestinationAccount { get; set; }
-    // public string Type { get; set; }
+
     [Required]
     [Column(TypeName = "decimal(10,2)")]
     public decimal Amount { get; set; }

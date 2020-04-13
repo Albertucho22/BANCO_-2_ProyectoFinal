@@ -51,3 +51,6 @@ TASK GROUP 2: [OSCAR]
  - Transaction WireTransfer class, sql table & controller
  - Implement Logging for all controllers
 
+TASK GROUP 3:
+ - Implement Get Client by NationalId
+ - Implement Employees Auth API

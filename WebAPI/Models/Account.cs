@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace WebAPI.Models {
   public class Account {
@@ -24,6 +25,9 @@ namespace WebAPI.Models {
     [ForeignKey("AccountId")]
     public virtual List<Transaction> Transactions { get; set; }
 
+    [ForeignKey("ReceiverAccountId")]
+    public virtual List<LocalTransfer> ReceivedLocalTransfers { get; set; }
+
     public Account() {
       CreatedAt = DateTime.Now;
       Balance = 0;
@@ -37,6 +41,10 @@ namespace WebAPI.Models {
         throw new Exception("Account does not have sufficient funds.");
       }
       this.Balance = newBalance;
+    }
+
+    public List<LocalTransfer> GetLocalTransfers() {
+      return Transactions.OfType<LocalTransfer>().ToList();
     }
   }
 }

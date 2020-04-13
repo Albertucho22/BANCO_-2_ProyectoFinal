@@ -34,12 +34,26 @@ namespace WebAPI.Services {
       return withdrawal;
     }
 
+<<<<<<< HEAD
         internal Task<List<LoanPayment>> GetLoanPayments()
         {
             throw new NotImplementedException();
         }
 
         public async Task<Deposit> Create(Deposit deposit) {
+=======
+    public async Task<List<LocalTransfer>> GetLocalTransfers() =>
+      await _context.LocalTransfers.ToListAsync();
+
+    public async Task<LocalTransfer> GetLocalTransfers(int id) {
+      var localTransfer = await _context.LocalTransfers.FindAsync(id);
+      if (localTransfer == null) throw new Exception("No Local Transfer found with given Id.");
+
+      return localTransfer;
+    }
+
+    public async Task<Deposit> Create(Deposit deposit) {
+>>>>>>> ab4a47c7d6a18c6fef13e2b7747a787c3f0a447f
       _context.Deposits.Add(deposit);
       await _context.SaveChangesAsync();
       return deposit;
@@ -48,6 +62,12 @@ namespace WebAPI.Services {
       _context.Withdrawals.Add(withdrawal);
       await _context.SaveChangesAsync();
       return withdrawal;
+    }
+
+    public async Task<LocalTransfer> Create(LocalTransfer localTransfer) {
+      _context.LocalTransfers.Add(localTransfer);
+      await _context.SaveChangesAsync();
+      return localTransfer;
     }
   }
 }
