@@ -54,3 +54,4 @@ TASK GROUP 2: [OSCAR]
 TASK GROUP 3:
  - Implement Get Client by NationalId
  - Implement Employees Auth API
+ - Fix Loan
