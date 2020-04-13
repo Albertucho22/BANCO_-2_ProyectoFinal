@@ -19,6 +19,7 @@ namespace WebAPI.Data
         public DbSet<DataMaintainer> DataMaintainers { get; set; }
         public DbSet<DataConsultant> DataConsultants { get; set; }
         public DbSet<Loan> Loan { get; set; }
+        public DbSet<LoanPayment> LoanPayments { get; set; }
 
     }
 }

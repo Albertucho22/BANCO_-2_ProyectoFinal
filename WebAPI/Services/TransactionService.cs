@@ -34,7 +34,12 @@ namespace WebAPI.Services {
       return withdrawal;
     }
 
-    public async Task<Deposit> Create(Deposit deposit) {
+        internal Task<List<LoanPayment>> GetLoanPayments()
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Deposit> Create(Deposit deposit) {
       _context.Deposits.Add(deposit);
       await _context.SaveChangesAsync();
       return deposit;
