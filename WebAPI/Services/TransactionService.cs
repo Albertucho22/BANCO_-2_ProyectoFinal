@@ -44,6 +44,16 @@ namespace WebAPI.Services {
       return localTransfer;
     }
 
+    public async Task<List<LoanPayment>> GetLoanPayments() =>
+      await _context.LoanPayments.ToListAsync();
+
+    public async Task<LoanPayment> GetLoanPayments(int id) {
+      var loanPayment = await _context.LoanPayments.FindAsync(id);
+      if (loanPayment == null) throw new Exception("No Loan Payment found with given Id.");
+
+      return loanPayment;
+    }
+
     public async Task<Deposit> Create(Deposit deposit) {
       _context.Deposits.Add(deposit);
       await _context.SaveChangesAsync();
@@ -59,6 +69,12 @@ namespace WebAPI.Services {
       _context.LocalTransfers.Add(localTransfer);
       await _context.SaveChangesAsync();
       return localTransfer;
+    }
+
+    public async Task<LoanPayment> Create(LoanPayment loanPayment) {
+      _context.LoanPayments.Add(loanPayment);
+      await _context.SaveChangesAsync();
+      return loanPayment;
     }
   }
 }
