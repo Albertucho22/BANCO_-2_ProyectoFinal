@@ -21,13 +21,7 @@ namespace WebAPI.Models {
     }
 
     [Column(TypeName = "decimal(10,2)")]
-    public decimal RemainingAmount {
-      get {
-        // totalAmount - all payments
-        return TotalAmount;
-      }
-      private set { }
-    }
+    public decimal RemainingAmount { get; set; }
 
     private double PMT(double yearlyInterestRate, int totalNumberOfMonths, double loanAmount) {
       double rate = yearlyInterestRate / 100 / 12;

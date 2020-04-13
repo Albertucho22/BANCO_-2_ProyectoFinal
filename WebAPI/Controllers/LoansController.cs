@@ -7,23 +7,24 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.Data;
 using WebAPI.Models;
+using WebAPI.Services;
 
 namespace WebAPI.Controllers {
   [Route("api/[controller]")]
   [ApiController]
   public class LoansController : ControllerBase {
     private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-    private readonly Core2DbContext _context;
+    private readonly LoanService _loanService;
 
-    public LoansController(Core2DbContext context) {
-      _context = context;
+    public LoansController(LoanService loanService) {
+      _loanService = loanService;
     }
 
     // GET: api/Loans
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Loan>>> GetLoan() {
       try {
-        List<Loan> loans = await _context.Loan.ToListAsync();
+        List<Loan> loans = await _loanService.Get();
         log.Info($"Get {loans.Count} loans");
         return Ok(loans);
       } catch (System.Exception e) {
@@ -40,7 +41,7 @@ namespace WebAPI.Controllers {
     [HttpGet("{id}")]
     public async Task<ActionResult<Loan>> GetLoan(int id) {
       try {
-        var loan = await _context.Loan.FindAsync(id);
+        var loan = await _loanService.Get(id);
 
         if (loan == null) {
           log.Warn($"Loan {id} not found");
@@ -72,26 +73,29 @@ namespace WebAPI.Controllers {
     // To protect from overposting attacks, please enable the specific properties you want to bind to, for
     // more details see https://aka.ms/RazorPagesCRUD.
     [HttpPost]
-    public async Task<ActionResult<Loan>> PostLoan(Loan loan) {
-      _context.Loan.Add(loan);
-      await _context.SaveChangesAsync();
-      log.Info($"Loan {loan.Id} has been created.");
-      return CreatedAtAction("GetLoan", new { id = loan.Id }, loan);
+    public async Task<ActionResult<Loan>> PostLoan(Loan loan, [FromServices] AccountService _accountService) {
+      try {
+        var account = await _accountService.Get(loan.AccountId);
+        if (account == null) {
+          log.Warn($"Account {loan.AccountId} not found.");
+          return BadRequest("Account not found.");
+        }
+
+        log.Info($"Loan {loan.Id} has been created.");
+        return await _loanService.Create(loan);
+      } catch (Exception e) {
+        log.Error(e);
+        return BadRequest(new { error = new { message = e.Message } });
+      }
     }
 
-    // DELETE: api/Loans/5
-    [HttpDelete("{id}")]
-    public async Task<ActionResult<Loan>> DeleteLoan(int id) {
-      var loan = await _context.Loan.FindAsync(id);
-      if (loan == null) {
-        log.Warn($"Loan {id} not found");
-        return NotFound();
-      }
-
-      _context.Loan.Remove(loan);
-      await _context.SaveChangesAsync();
-      log.Info($"Loan {id} has been deleted.");
-      return loan;
+    // DELETE: api/Loans
+    [HttpDelete]
+    public ActionResult DeleteLoan() {
+      log.Warn("Deny DELETE action from /api/Loans");
+      return BadRequest(new {
+        error = new { message = "Delete operation not permitted on Loans " }
+      });
     }
   }
 }
