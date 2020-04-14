@@ -1,37 +1,37 @@
 @model IEnumerable<EmployeesDashboard.Models.EmployeeViewModel>
 @{
-    ViewData["Title"] = "Employees Page";
+  ViewData["Title"] = "Employees Page";
 }
 
-<div class="text-center">
-  <h1 class="display-4">Employees</h1>
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Id</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Username</th>
-        <th>Email</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      @foreach (var employee in Model)
-      {
-          <tr>
-            <td>@Html.DisplayFor(m => employee.Id)</td>
-            <td>@Html.DisplayFor(m => employee.FirstName)</td>
-            <td>@Html.DisplayFor(m => employee.LastName)</td>
-            <td>@Html.DisplayFor(m => employee.UserName)</td>
-            <td>@Html.DisplayFor(m => employee.Email)</td>
-            <td>
-              <a asp-action="Details" asp-route-id="@employee.Id">Details</a> |
-              <a asp-action="Delete" asp-route-id="@employee.Id">Delete</a>
-            </td>
-          </tr>
-      }
-    </tbody>
-  </table>
-</div>
+<h1>Employees List</h1>
+<p><a asp-controller="Auth" asp-action="Register">Create New</a></p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Username</th>
+      <th>Email</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var employee in Model)
+    {
+        <tr>
+          <td>@Html.DisplayFor(m => employee.Id)</td>
+          <td>@Html.DisplayFor(m => employee.FirstName)</td>
+          <td>@Html.DisplayFor(m => employee.LastName)</td>
+          <td>@Html.DisplayFor(m => employee.UserName)</td>
+          <td>@Html.DisplayFor(m => employee.Email)</td>
+          <td>
+            <a asp-action="Details" asp-route-id="@employee.Id">Details</a> |
+            <a asp-action="Delete" asp-route-id="@employee.Id">Delete</a>
+          </td>
+        </tr>
+    }
+  </tbody>
+</table>

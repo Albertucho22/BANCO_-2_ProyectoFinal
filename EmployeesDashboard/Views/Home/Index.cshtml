@@ -6,4 +6,32 @@
     <h1 class="display-4">Welcome</h1>
 </div>
 
-<h3><a asp-controller="Clients" asp-action="Index">Clients</a></h3>
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Clients</h5>
+                <p class="card-text">View & Manage all Clients</p>
+                <a asp-controller="Clients" asp-action="Index" class="btn btn-primary">Go</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Accounts</h5>
+                <p class="card-text">View & Manage all Accounts</p>
+                <a asp-controller="Accounts" asp-action="Index" class="btn btn-primary">Go</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Employees</h5>
+                <p class="card-text">View & Manage all Employees</p>
+                <a asp-controller="Employees" asp-action="Index" class="btn btn-primary">Go</a>
+            </div>
+        </div>
+    </div>
+</div>
