@@ -12,6 +12,7 @@ using EmployeesDashboard.Models.API;
 
 namespace EmployeesDashboard.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

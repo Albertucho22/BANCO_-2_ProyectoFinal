@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using EmployeesDashboard.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -42,11 +43,13 @@ namespace EmployeesDashboard.Controllers {
     }
 
     [HttpGet]
+    [Authorize(Roles="Admin")]
     public IActionResult Register() {
       return View();
     }
 
     [HttpPost]
+    [Authorize(Roles="Admin")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Register(EmployeeRegistrationModel employeeModel) {
       if (!ModelState.IsValid) return View();
