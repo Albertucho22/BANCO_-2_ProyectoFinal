@@ -14,10 +14,6 @@ namespace WebAPI.Data
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<Deposit> Deposits { get; set; }
         public DbSet<Withdrawal> Withdrawals { get; set; }
-
-        public DbSet<Admin> Admins { get; set; }
-        public DbSet<DataMaintainer> DataMaintainers { get; set; }
-        public DbSet<DataConsultant> DataConsultants { get; set; }
         public DbSet<Loan> Loans { get; set; }
         public DbSet<LocalTransfer> LocalTransfers { get; set; }
         public DbSet<LoanPayment> LoanPayments { get; set; }
