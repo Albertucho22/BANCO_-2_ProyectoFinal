@@ -1,5 +1,15 @@
 @model EmployeesDashboard.Models.API.Account
+@using EmployeesDashboard.Models.API
 @{ ViewData["Title"] = "Account Details Page"; }
+
+@{
+  bool isDebitTransaction(Transaction transaction) {
+    if (transaction.Discriminator == "Withdrawal") return true;
+    if (transaction.Discriminator == "LocalTransfer") return true;
+    if (transaction.Discriminator == "LoanPayment") return true;
+    return false;
+  }
+}
 
 <h3>Account @Html.Display("Id")</h3>
 
@@ -20,7 +30,7 @@
 
 <h4>Transactions</h4>
 
-<table class="table">
+<table class="table mb-4">
   <thead>
     <tr>
       <th>ID</th>
@@ -35,9 +45,8 @@
     {
       <tr>
         <td>@Html.DisplayFor(m => transaction.Id)</td>
-        <td class="@(@transaction.Discriminator == "Withdrawal" ? "text-danger" : "")">
-          @if (transaction.Discriminator == "Withdrawal")
-          {
+        <td class="@(@isDebitTransaction(transaction) ? "text-danger" : "")">
+          @if (isDebitTransaction(transaction)) {
             <span>-</span>
           }
           @Html.DisplayFor(m => transaction.Amount)
@@ -49,3 +58,31 @@
     }
   </tbody>
 </table>
+
+@if (Model.ReceivedLocalTransfers.Count > 0) {
+  <h4>Received Local Transfers</h4>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Amount</th>
+        <th>Receiver Account</th>
+        <th>Information</th>
+        <th>Created At</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach (var transaction in Model.ReceivedLocalTransfers)
+      {
+        <tr>
+          <td>@Html.DisplayFor(m => transaction.Id)</td>
+          <td>@Html.DisplayFor(m => transaction.Amount)</td>
+          <td>@Html.DisplayFor(m => transaction.ReceiverAccountId)</td>
+          <td>@Html.DisplayFor(m => transaction.Information)</td>
+          <td>@Html.DisplayFor(m => transaction.CreatedAt)</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}

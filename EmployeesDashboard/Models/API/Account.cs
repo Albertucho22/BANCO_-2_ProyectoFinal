@@ -23,5 +23,7 @@ namespace EmployeesDashboard.Models.API {
     // public virtual List<Loan> Loans { get; set; }
 
     public virtual List<Transaction> Transactions { get; set; }
+
+    public virtual List<EmployeesDashboard.Models.API.LocalTransfer> ReceivedLocalTransfers { get; set; }
   }
 }
