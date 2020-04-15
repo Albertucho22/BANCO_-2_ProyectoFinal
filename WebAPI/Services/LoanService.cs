@@ -24,6 +24,7 @@ namespace WebAPI.Services {
     }
 
     public async Task<Loan> Create(Loan loan) {
+      loan.RemainingAmount = loan.TotalAmount;
       _context.Loans.Add(loan);
       await _context.SaveChangesAsync();
       return loan;
@@ -33,7 +34,13 @@ namespace WebAPI.Services {
       var loan = await _context.Loans.FindAsync(id);
       if (loan == null) throw new Exception("No Loan found with given Id.");
 
-      loan.RemainingAmount -= loanPaymentAmount;
+      decimal updatedRemainingAmount = loan.RemainingAmount - loanPaymentAmount;
+      if (updatedRemainingAmount < 0) {
+        if (loan.RemainingAmount == 0) throw new Exception("Loan is already paid. No further action needed.");
+        throw new Exception($"Loan is due less than the given Loan Payment. Please pay ${loan.RemainingAmount} or less.");
+      }
+
+      loan.RemainingAmount = updatedRemainingAmount;
 
       _context.Loans.Update(loan);
 
