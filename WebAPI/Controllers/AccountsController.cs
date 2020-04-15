@@ -79,8 +79,9 @@ namespace WebAPI.Controllers {
     public async Task<ActionResult<Account>> PostAccount(Account account, [FromServices] ClientService _clientService) {
       try {
         var client = await _clientService.Get(account.ClientId);
-        log.Info($"Account {account.Id} has been created.");
-        return await _accountService.Create(account);
+        Account createdAccount = await _accountService.Create(account);
+        log.Info($"Account {createdAccount.Id} has been created.");
+        return createdAccount;
       } catch (Exception e) {
         log.Error(e);
         return BadRequest(new { error = new { message = e.Message } });

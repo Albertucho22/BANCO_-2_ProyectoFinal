@@ -79,8 +79,9 @@ namespace WebAPI.Controllers {
 
         account.UpdateBalance(withdrawal.Amount * -1);
         await _accountService.Update(account.Id, account);
-        log.Info($"Withdrawal {withdrawal.Id} has been created.");
-        return await _transactionService.Create(withdrawal);
+        Withdrawal createdWithdrawal = await _transactionService.Create(withdrawal);
+        log.Info($"Withdrawal {createdWithdrawal.Id} has been created.");
+        return createdWithdrawal;
       } catch (Exception e) {
         log.Error(e);
         return BadRequest(new {

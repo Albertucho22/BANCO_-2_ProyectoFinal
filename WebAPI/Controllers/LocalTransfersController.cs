@@ -91,8 +91,9 @@ namespace Controllers {
         await _accountService.Update(receiverAccount.Id, receiverAccount);
         var receiverAccountNewBalance = receiverAccount.Balance;
 
-        log.Info($"Local Transfer {localTransfer.Id} has been created.");
-        return await _transactionService.Create(localTransfer);
+        LocalTransfer createdLocalTransfer= await _transactionService.Create(localTransfer);
+        log.Info($"Local Transfer {createdLocalTransfer.Id} has been created.");
+        return createdLocalTransfer;
       } catch (System.Exception e) {
         log.Error(e);
         return BadRequest(new {

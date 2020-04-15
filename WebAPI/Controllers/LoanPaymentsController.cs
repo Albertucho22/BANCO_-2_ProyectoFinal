@@ -89,8 +89,9 @@ namespace Controllers {
 
         await _loanService.UpdateRemainingAmount(loan.Id, loanPayment.Amount);
 
-        log.Info($"Loan Payment {loanPayment.Id} has been created.");
-        return await _transactionService.Create(loanPayment);
+        LoanPayment createdLoanPayment = await _transactionService.Create(loanPayment);
+        log.Info($"Loan Payment {createdLoanPayment.Id} has been created.");
+        return createdLoanPayment;
       } catch (System.Exception e) {
         log.Error(e);
         return BadRequest(new {

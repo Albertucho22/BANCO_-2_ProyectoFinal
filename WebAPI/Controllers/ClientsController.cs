@@ -95,9 +95,9 @@ namespace WebAPI.Controllers {
     [HttpPost]
     public async Task<ActionResult<Client>> PostClient(Client client) {
       try {
-        var newClient = await _clientService.Create(client);
-        log.Info($"Client {client.Id} has been created.");
-        return newClient;
+        var createdClient = await _clientService.Create(client);
+        log.Info($"Client {createdClient.Id} has been created.");
+        return createdClient;
       } catch (Exception e) {
         log.Error(e);
         return BadRequest(new { error = new { message = e.Message } });

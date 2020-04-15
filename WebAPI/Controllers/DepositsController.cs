@@ -80,8 +80,9 @@ namespace WebAPI.Controllers {
 
         account.UpdateBalance(deposit.Amount);
         await _accountService.Update(account.Id, account);
-        log.Info($"Deposit {deposit.Id} has been created.");
-        return await _transactionService.Create(deposit);
+        Deposit createdDeposit = await _transactionService.Create(deposit);
+        log.Info($"Deposit {createdDeposit.Id} has been created.");
+        return createdDeposit;
       } catch (System.Exception e) {
         log.Error(e);
         return BadRequest(new {

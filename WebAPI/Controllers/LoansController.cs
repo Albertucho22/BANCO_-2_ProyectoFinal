@@ -81,8 +81,9 @@ namespace WebAPI.Controllers {
           return BadRequest("Account not found.");
         }
 
-        log.Info($"Loan {loan.Id} has been created.");
-        return await _loanService.Create(loan);
+        Loan createdLoan = await _loanService.Create(loan);
+        log.Info($"Loan {createdLoan.Id} has been created.");
+        return createdLoan;
       } catch (Exception e) {
         log.Error(e);
         return BadRequest(new { error = new { message = e.Message } });
